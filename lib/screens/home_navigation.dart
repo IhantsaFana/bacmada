@@ -14,7 +14,7 @@ class HomeNavigation extends StatefulWidget {
 class _HomeNavigationState extends State<HomeNavigation> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _screens = [
+  final List<Widget> _screens = const [
     HomeScreen(),
     SubjectsScreen(),
     QuizScreen(),

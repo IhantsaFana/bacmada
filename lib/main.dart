@@ -46,6 +46,13 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<User?>();
-    return user != null ? const HomeNavigation() : const AuthPage();
+    if (user != null) {
+      // Charger les matières quand l'utilisateur est connecté
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.read<SubjectsProvider>().fetchSubjects();
+      });
+      return const HomeNavigation();
+    }
+    return const AuthPage();
   }
 }
