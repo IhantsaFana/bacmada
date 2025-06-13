@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "138784060440",
+    "project_id": "formal-loop-429615-s3",
+    "storage_bucket": "formal-loop-429615-s3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138784060440:android:332dae9d2e19dc9675ff6d",
+        "android_client_info": {
+          "package_name": "com.example.examenmada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJgvyy-F4E6d0PWZKI9NTnsDMzdUkkXFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
