@@ -5,13 +5,34 @@ import '../models/subject.dart';
 class SubjectsProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Subject> _subjects = [];
+  List<Subject> _filteredSubjects = [];
   bool _isLoading = false;
+  String _searchQuery = '';
 
   List<Subject> get subjects => _subjects;
+  List<Subject> get filteredSubjects =>
+      _searchQuery.isEmpty ? _subjects : _filteredSubjects;
   bool get isLoading => _isLoading;
 
+  void searchSubjects(String query) {
+    _searchQuery = query.toLowerCase();
+    if (_searchQuery.isEmpty) {
+      _filteredSubjects = _subjects;
+    } else {
+      _filteredSubjects = _subjects.where((subject) {
+        final name = subject.name.toLowerCase();
+        final description = subject.description.toLowerCase();
+        return name.contains(_searchQuery) ||
+            description.contains(_searchQuery);
+      }).toList();
+    }
+    notifyListeners();
+  }
+
   List<Subject> getSubjectsByType(String type) {
-    return _subjects.where((subject) => subject.type == type).toList();
+    final subjectsToFilter =
+        _searchQuery.isEmpty ? _subjects : _filteredSubjects;
+    return subjectsToFilter.where((subject) => subject.type == type).toList();
   }
 
   Stream<List<Subject>> getSubjectsByCategory(String category) {
@@ -35,8 +56,11 @@ class SubjectsProvider extends ChangeNotifier {
       _subjects = querySnapshot.docs
           .map((doc) => Subject.fromMap(doc.data(), doc.id))
           .toList();
+      searchSubjects(_searchQuery); // Update filtered subjects
     } catch (e) {
       print('Error fetching subjects: $e');
+      _subjects = [];
+      _filteredSubjects = [];
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -49,16 +73,7 @@ class SubjectsProvider extends ChangeNotifier {
           .collection('subject')
           .doc(subjectId)
           .update({'progress': progress});
-
-      // Update local state
-      final index = _subjects.indexWhere((s) => s.id == subjectId);
-      if (index != -1) {
-        _subjects[index] = Subject.fromMap(
-          {..._subjects[index].toMap(), 'progress': progress},
-          subjectId,
-        );
-        notifyListeners();
-      }
+      await fetchSubjects(); // Refresh the subjects list
     } catch (e) {
       print('Error updating subject progress: $e');
     }

@@ -1,99 +1,79 @@
 import 'package:flutter/material.dart';
 
 class AIRecommendationCard extends StatelessWidget {
-  const AIRecommendationCard({super.key});
+  final String subject;
+  final String recommendation;
+  final VoidCallback? onAction;
+
+  const AIRecommendationCard({
+    super.key,
+    required this.subject,
+    required this.recommendation,
+    this.onAction,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF6366F1), Color(0xFF4F46E5)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        color: Colors.indigo.shade50,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.indigo.shade100,
+          width: 1,
         ),
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.indigoAccent.withOpacity(0.18),
-            blurRadius: 16,
-            offset: const Offset(0, 6),
-          ),
-        ],
       ),
-      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Icon(Icons.auto_awesome, color: Colors.white, size: 28),
-              SizedBox(width: 10),
+            children: [
+              const Icon(
+                Icons.psychology,
+                color: Colors.indigo,
+              ),
+              const SizedBox(width: 8),
               Text(
-                'Recommandations IA',
-                style: TextStyle(
-                  color: Colors.white,
+                'Recommandation IA - $subject',
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  letterSpacing: 0.5,
+                  color: Colors.indigo,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 18),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.18),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "À réviser aujourd'hui",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(height: 6),
-                Text(
-                  'Dérivées en Mathématiques - Chapitre 3',
-                  style: TextStyle(
-                    color: Color(0xFFE0E7FF),
-                    fontSize: 13,
-                  ),
-                ),
-              ],
+          const SizedBox(height: 12),
+          Text(
+            recommendation,
+            style: TextStyle(
+              color: Colors.grey[800],
+              fontSize: 14,
             ),
           ),
-          const SizedBox(height: 14),
-          SizedBox(
-            width: double.infinity,
-            child: TextButton.icon(
+          if (onAction != null) ...[
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: onAction,
               style: TextButton.styleFrom(
-                backgroundColor: Colors.white.withOpacity(0.22),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                elevation: 0,
-                foregroundColor: Colors.white,
+                foregroundColor: Colors.indigo,
+                padding: EdgeInsets.zero,
               ),
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_forward, color: Colors.white, size: 20),
-              label: const Text(
-                'Voir plus de suggestions',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 15,
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('Commencer maintenant'),
+                  const SizedBox(width: 4),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 16,
+                    color: Colors.indigo[700],
+                  ),
+                ],
               ),
             ),
-          ),
+          ],
         ],
       ),
     );

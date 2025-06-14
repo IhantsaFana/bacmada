@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/subjects_provider.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});
@@ -6,24 +8,35 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [BoxShadow(color: Colors.blue.shade50, blurRadius: 10)],
-        border: Border.all(color: Colors.blue.shade100),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            spreadRadius: 0,
+          ),
+        ],
       ),
       child: Row(
         children: [
           const Icon(Icons.search, color: Colors.grey),
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
           Expanded(
             child: TextField(
-              decoration: InputDecoration(
+              onChanged: (value) {
+                context.read<SubjectsProvider>().searchSubjects(value);
+              },
+              decoration: const InputDecoration(
                 hintText: 'Rechercher une matière...',
                 border: InputBorder.none,
-                isDense: true,
-                contentPadding: EdgeInsets.zero,
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black87,
               ),
             ),
           ),

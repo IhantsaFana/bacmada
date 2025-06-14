@@ -9,7 +9,7 @@ class SubjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0,
+      elevation: 2,
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -26,7 +26,14 @@ class SubjectCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(subject.icon, color: Colors.indigo),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: subject.color.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(subject.icon, color: subject.color),
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
@@ -39,16 +46,24 @@ class SubjectCard extends StatelessWidget {
                             fontSize: 16,
                           ),
                         ),
-                        Text(
-                          subject.description,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 14,
-                          ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            _buildStatChip(
+                              Icons.menu_book,
+                              '${subject.chapterCount} chapitres',
+                            ),
+                            const SizedBox(width: 8),
+                            _buildStatChip(
+                              Icons.assignment,
+                              '${subject.exerciseCount} exercices',
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
+                  const Icon(Icons.chevron_right, color: Colors.grey),
                 ],
               ),
               const SizedBox(height: 12),
@@ -57,8 +72,7 @@ class SubjectCard extends StatelessWidget {
                 child: LinearProgressIndicator(
                   value: subject.progress,
                   backgroundColor: Colors.grey[200],
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(Colors.indigo),
+                  valueColor: AlwaysStoppedAnimation<Color>(subject.color),
                   minHeight: 8,
                 ),
               ),
@@ -74,6 +88,23 @@ class SubjectCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildStatChip(IconData icon, String label) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 14, color: Colors.grey[600]),
+        const SizedBox(width: 4),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontSize: 12,
+          ),
+        ),
+      ],
     );
   }
 }

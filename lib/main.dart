@@ -6,16 +6,17 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'services/auth_service.dart';
 import 'providers/subjects_provider.dart';
+import 'providers/quiz_provider.dart';
 import 'widgets/auth_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const BacMadaApp());
+  runApp(const TSApp());
 }
 
-class BacMadaApp extends StatelessWidget {
-  const BacMadaApp({super.key});
+class TSApp extends StatelessWidget {
+  const TSApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +28,10 @@ class BacMadaApp extends StatelessWidget {
           initialData: null,
         ),
         ChangeNotifierProvider(create: (_) => SubjectsProvider()),
+        ChangeNotifierProvider(create: (_) => QuizProvider()),
       ],
       child: MaterialApp(
-        title: 'BacMada',
+        title: 'Terminal S',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           fontFamily: 'Roboto',

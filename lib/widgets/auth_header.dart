@@ -24,8 +24,10 @@ class AuthHeader extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              Text('BacMada', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              Text('Série Scientifique', style: TextStyle(fontSize: 12, color: Colors.grey)),
+              Text('TS',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              Text('Série Scientifique',
+                  style: TextStyle(fontSize: 12, color: Colors.grey)),
             ],
           ),
         ],
