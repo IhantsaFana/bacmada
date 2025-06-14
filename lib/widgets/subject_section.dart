@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/subjects_provider.dart';
-import '../services/subject_service.dart';
 import 'subject_card.dart';
 
 class SubjectSection extends StatelessWidget {

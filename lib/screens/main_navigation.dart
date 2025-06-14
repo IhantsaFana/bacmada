@@ -1,6 +1,6 @@
+import 'package:examenmada/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import '../main.dart';
 import 'subjects_screen.dart';
 import 'quiz_screen.dart';
 import 'progress_screen.dart';
@@ -17,7 +17,7 @@ class _MainNavigationState extends State<MainNavigation> {
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   final List<Widget> _screens = [
-    const HomePage(),
+    const HomeScreen(),
     const SubjectsScreen(),
     const QuizScreen(),
     const ProgressScreen(),
